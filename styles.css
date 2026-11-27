@@ -196,12 +196,12 @@ select {
 }
 
 .search {
+  position: relative;
   display: flex;
   flex: 1 1 160px;
   align-items: center;
-  gap: 6px;
   min-width: 140px;
-  padding: 0 6px 0 10px;
+  padding: 0 10px;
 }
 
 .search:focus-within {
@@ -221,7 +221,13 @@ select {
 
 .search input::-webkit-search-cancel-button { appearance: none; }
 
+.search:has(#clear:not([hidden])) input { padding-right: 52px; }
+
 #clear {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
   border: 0;
   background: var(--soft);
   color: var(--navy);

@@ -297,15 +297,36 @@
     };
   }
 
-  function datesIn(file) {
-    var seen = {};
+  function isoFromDate(date) {
+    var month = String(date.getMonth() + 1);
+    var day = String(date.getDate());
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+    return date.getFullYear() + "-" + month + "-" + day;
+  }
+
+  function fileDates(file) {
+    var start = file && file.weekStart;
+    var end = file && file.weekEnd;
+    if (!start || !end) {
+      var stamps = [];
+      ((file && file.rows) || []).forEach(function (row) {
+        if (row.Date) stamps.push(row.Date);
+      });
+      stamps.sort();
+      start = stamps[0];
+      end = stamps[stamps.length - 1];
+    }
     var dates = [];
-    (file.rows || []).forEach(function (row) {
-      if (!inOfficer(row) || !row.Date || seen[row.Date]) return;
-      seen[row.Date] = true;
-      dates.push(row.Date);
-    });
-    dates.sort();
+    var cursor = dateObject(start);
+    var last = dateObject(end);
+    if (!cursor || !last || cursor > last) return dates;
+    var guard = 0;
+    while (cursor <= last && guard < 21) {
+      dates.push(isoFromDate(cursor));
+      cursor.setDate(cursor.getDate() + 1);
+      guard += 1;
+    }
     return dates;
   }
 
@@ -347,9 +368,9 @@
 
   function renderDays(file) {
     daysEl.replaceChildren();
-    var dates = file ? datesIn(file) : [];
+    var dates = file ? fileDates(file) : [];
     if (state.day !== "all" && dates.indexOf(state.day) === -1) state.day = "all";
-    if (dates.length < 2) {
+    if (!dates.length) {
       daysEl.hidden = true;
       return;
     }
