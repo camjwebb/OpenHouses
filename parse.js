@@ -19,7 +19,9 @@
     "city": "City",
     "class": "Class",
     "realtor link": "Realtor Link",
-    "listing link": "Listing Link"
+    "listing link": "Listing Link",
+    "co-agent link": "Co-Agent Link",
+    "co agent link": "Co-Agent Link"
   };
 
   var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -100,7 +102,8 @@
         "City": "",
         "Class": "",
         "Realtor Link": "",
-        "Listing Link": ""
+        "Listing Link": "",
+        "Co-Agent Link": ""
       };
       var recognized = false;
       Object.keys(object || {}).forEach(function (key) {

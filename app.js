@@ -424,6 +424,7 @@
       return linkHtml(url, inner, label);
     }
     if (column === "MLS") return linkHtml(safeUrl(row["Listing Link"]), inner, "Open listing");
+    if (column === "Co-Agent") return linkHtml(safeUrl(row["Co-Agent Link"]), inner, "");
     if (column === "VIP") {
       var yes = String(row.VIP).trim().toLowerCase() === "yes";
       return '<span class="pill ' + (yes ? "pill-yes" : "pill-no") + '">' + inner + "</span>";

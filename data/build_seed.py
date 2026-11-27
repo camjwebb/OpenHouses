@@ -25,6 +25,7 @@ with src.open(encoding="utf-8-sig", newline="") as handle:
             "Class": record.get("Class", "").strip(),
             "Realtor Link": record.get("Realtor Link", "").strip(),
             "Listing Link": record.get("Listing Link", "").strip(),
+            "Co-Agent Link": record.get("Co-Agent Link", "").strip(),
         }
         rows.append(row)
 
